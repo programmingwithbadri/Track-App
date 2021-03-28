@@ -1,11 +1,21 @@
 import React from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
+import { Text, Input, Button } from 'react-native-elements'
+import Spacer from '../components/Spacer';
 
 const SignupScreen = () => {
     return (
-        <View>
-            <Text> SignupScreen </Text>
-        </View>
+        <>
+            <Spacer>
+                <Text h3> Signup for Tracker</Text>
+            </Spacer>
+            <Input label="Email" />
+            <Spacer />
+            <Input label="Password" />
+            <Spacer>
+                <Button title="Sign Up" />
+            </Spacer>
+        </>
     )
 }
 
