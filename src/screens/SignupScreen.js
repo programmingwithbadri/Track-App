@@ -1,54 +1,25 @@
-import React, { useState, useContext } from 'react'
-import { StyleSheet, View, TouchableOpacity } from 'react-native'
-import { Text, Input, Button } from 'react-native-elements'
-import Spacer from '../components/Spacer';
+import React, { useContext } from 'react'
+import { StyleSheet, View } from 'react-native'
+import AuthForm from '../components/AuthForm';
+import NavLink from '../components/NavLink';
 import { Context as AuthContext } from '../context/AuthContext';
 
-const SignupScreen = ({ navigation }) => {
+const SignupScreen = () => {
     const { state, signup } = useContext(AuthContext);
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
 
     return (
         <View style={styles.container}>
-            <Spacer>
-                <Text h3> Signup for Tracker</Text>
-            </Spacer>
-            <Input
-                label="Email"
-                value={email}
-                onChangeText={setEmail}
-                autoCapitalize="none"
-                autoCorrect={false}
+            <AuthForm
+                headerText="Signup for the tracker"
+                errorMessage={state.errorMessage}
+                onSubmit={signup}
+                submitButtonText="Signup"
             />
-            <Spacer />
-            <Input
-                secureTextEntry
-                label="Password"
-                value={password}
-                onChangeText={setPassword}
-                autoCapitalize="none"
-                autoCorrect={false}
+            <NavLink
+                text="Already have an account? Sign in instead"
+                routeName="Signin"
             />
-            {state.errorMessage
-                ? <Spacer>
-                    <Text style={styles.error}>
-                        {state.errorMessage}
-                    </Text>
-                </Spacer>
-                : null}
-            <Spacer>
-                <Button
-                    title="Sign Up"
-                    onPress={() => signup({ email, password })}
-                />
-            </Spacer>
-            <TouchableOpacity onPress={() => navigation.navigate('Signin')}>
-                <Spacer>
-                    <Text style={styles.link}>Already have an account? Sign in instead</Text>
-                </Spacer>
-            </TouchableOpacity>
-        </View>
+        </View >
     )
 }
 
@@ -63,13 +34,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         marginBottom: 250
-    },
-    error: {
-        fontSize: 16,
-        color: 'red'
-    },
-    link: {
-        color: 'blue'
     }
 })
 
