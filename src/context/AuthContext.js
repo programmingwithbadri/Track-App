@@ -11,14 +11,13 @@ const authReducer = (state, action) => {
         case 'ADD_ERROR':
             return { ...state, errorMessage: action.payload }
         case 'CLEAR_ERROR_MESSAGE':
-            return { ...state, errorMessage: ''}
+            return { ...state, errorMessage: '' }
         default:
             return state;
     }
 }
 
 const clearErrorMessage = dispatch => () => {
-    console.log('Called')
     dispatch({
         type: 'CLEAR_ERROR_MESSAGE'
     })
@@ -43,7 +42,6 @@ const signup = (dispatch) => async ({ email, password }) => {
     }
 }
 
-
 const signin = (dispatch) => async ({ email, password }) => {
     try {
         const response = await trackerApi.post('/signin', { email, password });
@@ -63,6 +61,20 @@ const signin = (dispatch) => async ({ email, password }) => {
     }
 }
 
+const isUserLoggedIn = (dispatch) => async () => {
+    const token = await AsyncStorage.getItem('token');
+
+    if (token) {
+        dispatch({
+            type: 'SIGNIN',
+            payload: token
+        })
+        navigate('TrackList');
+    } else {
+        navigate('Signin');
+    }
+}
+
 const signout = (dispatch) => {
     return () => {
 
@@ -71,6 +83,6 @@ const signout = (dispatch) => {
 
 export const { Provider, Context } = createDataContext(
     authReducer, // reducers
-    { signin, signout, signup, clearErrorMessage }, // actions
+    { signin, signout, signup, clearErrorMessage, isUserLoggedIn }, // actions
     { token: null, errorMessage: '' } // initial state
 )
