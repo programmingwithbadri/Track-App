@@ -1,29 +1,32 @@
-import React from 'react'
-import { StyleSheet } from 'react-native'
+import React, { useContext } from 'react'
+import { ActivityIndicator, StyleSheet } from 'react-native'
 import MapView, { Polyline } from 'react-native-maps'
+import { Context as LocationContext } from '../context/LocationContext';
 
 const Map = () => {
-    let points = []; // Testdata to see the navigation line in map
+    const { state: { currentLocation } } = useContext(LocationContext);
 
-    for (let i = 0; i < 20; i++) {
-        points.push({
-            latitude: 13.067439 + i * 0.001,
-            longitude: 80.237617 + i * 0.001
-        })
+    if (!currentLocation) {
+        return <ActivityIndicator size="large" style={{ marginTop: 200 }} />
     }
-
     return (
+        // Region - will set the screen to the current location.
+        // Wont allow to drag and see other locations
+        // latitudeDelta and longitudeDelta - shows the width or zoom of the map
         <MapView
             style={styles.map}
             initialRegion={{
-                latitude: 13.067439,
-                longitude: 80.237617,
+                ...currentLocation.coords,
+                latitudeDelta: 0.04,
+                longitudeDelta: 0.05,
+            }}
+            region={{
+                ...currentLocation.coords,
                 latitudeDelta: 0.04,
                 longitudeDelta: 0.05,
             }}
         >
-            <Polyline coordinates={points}/>
-        </MapView>
+        </MapView >
     )
 }
 
