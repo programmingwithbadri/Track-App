@@ -23,7 +23,7 @@ const SignupScreen = () => {
                 text="Already have an account? Sign in instead"
                 routeName="Signin"
             />
-        </View >
+        </View>
     )
 }
 
@@ -36,7 +36,8 @@ SignupScreen.navigationOptions = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        alignItems:'stretch',
+        marginTop: 100,
         marginBottom: 250
     }
 })
