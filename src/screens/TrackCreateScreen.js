@@ -1,11 +1,15 @@
 import React from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { Text } from 'react-native-elements'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import Map from '../components/Map'
 
 const TrackCreateScreen = () => {
     return (
-        <View>
-            <Text> TrackCreateScreen </Text>
-        </View>
+        <SafeAreaView>
+            <Text h2> TrackCreateScreen </Text>
+            <Map />
+        </SafeAreaView>
     )
 }
 
